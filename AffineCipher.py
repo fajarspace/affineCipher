@@ -10,18 +10,16 @@ def enkripsi():
     plainTeks = plainTeks.upper();
 
     print('Masukkan kunci pertama, pastikan itu adalah bilangan relatif prima sampai 26: ');
-    inputType = 'kunciA';
-    kunciA = int(validasiTipe(inputType));
-    
+    inputTipe = 'kunciA';
+    kunciA = int(validasiTipe(inputTipe));
     print('Masukkan kunci kedua: ');
-    inputType = 'kunciB';
-    kunciB = int(validasiTipe(inputType));
+    inputTipe = 'kunciB';
+    kunciB = int(validasiTipe(inputTipe));
+    print ("Hasil:")
+    hasil = len(plainTeks);
     
-    print ("Hasil :")
-    length = len(plainTeks);
-    
-    for x in range(length):
-        angka = ord(plainTeks[x]);
+    for prosesEnkripsi in range(hasil):
+        angka = ord(plainTeks[prosesEnkripsi]);
         if angka >= 65 and angka <= 90:
             enkripAngka = ((angka - 65) * kunciA + kunciB) % 26;
             enkripTeks += chr(enkripAngka + 65);
@@ -38,19 +36,17 @@ def dekripsi():
     enkripTeks = enkripTeks.upper();
     
     print('Masukkan kunci pertama yang telah digunakan, Pastikan itu adalah bilangan relatif prima sampai 26: ');
-    inputType = 'kunciA';
-    kunciA = int(validasiTipe(inputType));
-
+    inputTipe = 'kunciA';
+    kunciA = int(validasiTipe(inputTipe));
     print('Masukkan kunci kedua: ');
-    inputType = 'kunciB';
-    kunciB = int(validasiTipe(inputType));
-
-    print ("Hasil :")
-    length = len(enkripTeks);
+    inputTipe = 'kunciB';
+    kunciB = int(validasiTipe(inputTipe));
+    print ("Hasil:")
+    hasil = len(enkripTeks);
 
     kunciA_inverse = int(inverse(kunciA, 26));
-    for x in range(length):
-        enkripAngka = ord(enkripTeks[x]);
+    for prosesDekripsi in range(hasil):
+        enkripAngka = ord(enkripTeks[prosesDekripsi]);
         if enkripAngka >= 65 and enkripAngka <= 90:
             angka = (((enkripAngka - 65) - kunciB) * kunciA_inverse) % 26;
             plainTeks += chr(angka + 65);
@@ -61,20 +57,20 @@ def dekripsi():
     return plainTeks;
 
 
-def validasiTipe(inputType):
+def validasiTipe(inputTipe):
     kunciA = input('');
     while kunciA.isdigit() == False:
         kunciA = input('Bukan Angka yang valid. Coba lagi: \n');
-    if inputType == 'kunciA':
+    if inputTipe == 'kunciA':
         validasiBilPrima(kunciA);
     return kunciA;
 
 def validasiBilPrima(kunciA):
-    inputType = 'kunciA';
-    prosesA = math.gcd(int(kunciA), 26);
-    while prosesA != 1:
+    inputTipe = 'kunciA';
+    prosesValidasiA = math.gcd(int(kunciA), 26);
+    while prosesValidasiA != 1:
         print('Angka ini bukan bilangan relatif prima sampai 26. Coba lagi: ');
-        validasiTipe(inputType);
+        validasiTipe(inputTipe);
         break;
 
 def inverse(a, m):
@@ -91,7 +87,6 @@ def inverse(a, m):
 
 def main():
     pilihan = '';
-    
     while pilihan != '3':
         pilihan = input('\nKetik Angka yang tersedia. \n1. Encrypt\n2. Decrypt\n3. Keluar\n');
         if pilihan == '1':
@@ -103,7 +98,5 @@ def main():
         else:
             print('Kamu menginput pilihan yang salah.');
             pilihan = main();
-
     return pilihan;
-
 main();
